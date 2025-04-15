@@ -1,0 +1,239 @@
+{
+  "name": "AI Inventory Management System",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi there! \nMy name is Imtiaz, and I'm your grocery AI assistant. How can I assist you today?",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -540,
+        -420
+      ],
+      "id": "18e7583e-22f8-481b-a6e0-43e7df093c5d",
+      "name": "When chat message received",
+      "webhookId": "526bc8cf-8147-4179-8aa7-f5a5e0cb6396"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        -320,
+        -420
+      ],
+      "id": "623d5d58-d0ad-4b65-9fb5-6bebbf4c23db",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "mistralai/mistral-small-3.1-24b-instruct:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -360,
+        -200
+      ],
+      "id": "721fc19f-049d-4051-981a-466adefc060f",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "RCXLUbS7m7xApJ90",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -220,
+        -200
+      ],
+      "id": "2aa1aa14-8259-431e-98b3-10eb159b1a41",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "143zT-lNEZjsk2yWZ36XW6f2-6YJQ0EhoAZueGmXy_m8",
+          "mode": "list",
+          "cachedResultName": "AI Inventory Management of a Grocery Store ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/143zT-lNEZjsk2yWZ36XW6f2-6YJQ0EhoAZueGmXy_m8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/143zT-lNEZjsk2yWZ36XW6f2-6YJQ0EhoAZueGmXy_m8/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        -60,
+        -200
+      ],
+      "id": "98ea3a64-419d-4f90-a32f-fdb066e2a74d",
+      "name": "inventory",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "EoWrvbZYlfCZCPNn",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "143zT-lNEZjsk2yWZ36XW6f2-6YJQ0EhoAZueGmXy_m8",
+          "mode": "list",
+          "cachedResultName": "AI Inventory Management of a Grocery Store ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/143zT-lNEZjsk2yWZ36XW6f2-6YJQ0EhoAZueGmXy_m8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/143zT-lNEZjsk2yWZ36XW6f2-6YJQ0EhoAZueGmXy_m8/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Item Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Item_Name__using_to_match_', ``, 'string') }}",
+            "Quantity in Stock": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Quantity_in_Stock', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "Item Name"
+          ],
+          "schema": [
+            {
+              "id": "Item Name",
+              "displayName": "Item Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Quantity in Stock",
+              "displayName": "Quantity in Stock",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        140,
+        -200
+      ],
+      "id": "e1d451c1-f2c3-48c9-b387-b45dc20b2305",
+      "name": "update inventory",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "EoWrvbZYlfCZCPNn",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "inventory": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update inventory": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1cd37d03-fd52-4109-9722-ee9d4155426a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f6cbacca4345ae0bcf21f68cb4da1b567d8558c24f7bddf4f6387cc059527aa4"
+  },
+  "id": "RiP1XxaxCpkHxlun",
+  "tags": []
+}
