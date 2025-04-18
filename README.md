@@ -3,7 +3,6 @@
 
 An intelligent no-code solution built with **n8n** that automates stock tracking, generates real-time alerts, and updates inventory via AI-powered chat. Perfect for small businesses looking to streamline operations.
 
-![Workflow Demo](screenshots/demo.gif) *(Replace with your screenshot)*
 
 ## 🔥 Key Features
 - **AI Chat Assistant**: Natural language interface for inventory queries/updates
